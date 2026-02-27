@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>报表统计</h2>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header">销售统计（按商品）</div>
+            <div class="card-body">
+                <table class="table table-sm">
+                    <thead><tr><th>商品ID</th><th>商品名</th><th>总销量</th><th>总销售额</th></tr></thead>
+                    <tbody>
+                        {% for row in sales_stats %}
+                        <tr><td>{{ row[0] }}</td><td>{{ row[1] }}</td><td>{{ row[2] }}</td><td>{{ row[3] }}</td></tr>
+                        {% else %}
+                        <tr><td colspan="4">暂无数据</td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header">进货统计（按商品）</div>
+            <div class="card-body">
+                <table class="table table-sm">
+                    <thead><tr><th>商品ID</th><th>商品名</th><th>总进货量</th><th>总成本</th></tr></thead>
+                    <tbody>
+                        {% for row in purchase_stats %}
+                        <tr><td>{{ row[0] }}</td><td>{{ row[1] }}</td><td>{{ row[2] }}</td><td>{{ row[3] }}</td></tr>
+                        {% else %}
+                        <tr><td colspan="4">暂无数据</td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">库存价值统计</div>
+    <div class="card-body">
+        <table class="table table-sm">
+            <thead><tr><th>ID</th><th>名称</th><th>库存</th><th>成本价</th><th>成本总值</th><th>售价</th><th>销售总值</th></tr></thead>
+            <tbody>
+                {% for row in inventory_value %}
+                <tr><td>{{ row[0] }}</td><td>{{ row[1] }}</td><td>{{ row[2] }}</td><td>{{ row[3] }}</td><td>{{ row[4] }}</td><td>{{ row[5] }}</td><td>{{ row[6] }}</td></tr>
+                {% else %}
+                <tr><td colspan="7">暂无库存</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <p><strong>库存成本总价值：</strong> {{ total_cost_value }}</p>
+        <p><strong>库存零售总价值：</strong> {{ total_price_value }}</p>
+    </div>
+</div>
+{% endblock %}
