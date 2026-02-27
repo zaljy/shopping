@@ -10,7 +10,6 @@ class InventoryRepository:
         sql = """
         CREATE TABLE inventory (
             product_id INT PRIMARY KEY NOT NULL,
-            name VARCHAR(255) NOT NULL,
             quantity DECIMAL(10, 3) NOT NULL
         )
         """
@@ -19,11 +18,14 @@ class InventoryRepository:
     def save_inventory(self,inventory:Inventory):
         sql = """
         INSERT INTO inventory 
-            (product_id,name,quantity) 
-            VALUES (?,?,?)
+            (product_id,quantity) 
+            VALUES (?,?)
         """
-        params = (inventory.product.product_id,inventory.product.name,inventory.quantity)
-        return self.db.execute(sql,params)
+        params = (inventory.product_id,inventory.quantity)
+        if self.get_inventory_by_id(inventory.product_id):
+            raise ValueError(f"{inventory.product_id} 已存在")
+        else:
+            return self.db.execute(sql,params)
 
     def delete_inventory(self,product_id):
         sql = 'DELETE FROM inventory WHERE product_id = ?'
@@ -53,4 +55,5 @@ class InventoryRepository:
 
     @staticmethod
     def _row_to_inventory(row):
-        return row['product_id'],row['name'],row['quantity']
+        inventory = Inventory(row['product_id'],row['quantity'])
+        return inventory

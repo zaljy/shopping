@@ -12,11 +12,12 @@ def main():
     inventory_service = InventoryService(inventory_repo)
     product_repo = ProductRepository(db)
     product_service = ProductService(product_repo)
+    # product_service.create_product(1002,"香蕉","水果",4,"好吃不贵的香蕉","kg",6,180)
+    # product = product_service.get_product_by_id(1002)
+    # # # inventory_repo.create_table()
+    # inventory_service.create_inventory(product.product_id,300)
+    # inventory_service.update_inventory_quantity(product.product_id,50)
 
-    product = product_service.get_product_by_id(1001)
-    # inventory_repo.create_table()
-    # inventory_service.create_inventory(product,100)
-    inventory_service.update_inventory_quantity(product,50)
 
 
 if __name__ == '__main__':
