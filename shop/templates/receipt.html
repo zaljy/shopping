@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4" id="receipt" style="max-width: 400px; margin: 0 auto;">
+    <div class="text-center">
+        <h3>XX超市</h3>
+        <p>电话: 123-4567890</p>
+        <p>地址: 某市某路某号</p>
+        <hr>
+        <p>销售单号: {{ sale.id }}</p>
+        <p>日期: {{ sale.date }}</p>
+        <p>收银员: {{ session.username }}</p>
+        <table class="table table-sm">
+            <thead><tr><th>商品</th><th>单价</th><th>数量</th><th>小计</th></tr></thead>
+            <tbody>
+                {% for item in items %}
+                <tr>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.price }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.subtotal }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <hr>
+        <h4>合计: ¥{{ total }}</h4>
+        <p>感谢惠顾，欢迎下次光临！</p>
+    </div>
+</div>
+<script>
+    window.onload = function() {
+        window.print();
+    }
+</script>
+{% endblock %}

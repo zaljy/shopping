@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>进货管理</h2>
+<!-- 进货录入表单 -->
+<div class="card mb-4">
+    <div class="card-header">录入新进货</div>
+    <div class="card-body">
+        <form method="post" action="{{ url_for('add_purchase') }}">
+            <div class="row">
+                <div class="col-md-3">
+                    <input type="number" name="product_id" class="form-control" placeholder="商品ID" required>
+                </div>
+                <div class="col-md-3">
+                    <input type="number" name="quantity" class="form-control" placeholder="数量" required>
+                </div>
+                <div class="col-md-3">
+                    <input type="number" step="0.01" name="cost" class="form-control" placeholder="进货单价" required>
+                </div>
+                <div class="col-md-3">
+                    <button type="submit" class="btn btn-primary">录入</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- 进货记录列表 -->
+<table class="table table-striped">
+    <thead><tr><th>ID</th><th>商品</th><th>数量</th><th>单价</th><th>日期</th></tr></thead>
+    <tbody>
+        {% for p in purchases %}
+        <tr><td>{{ p[0] }}</td><td>{{ p[1] }}</td><td>{{ p[2] }}</td><td>{{ p[3] }}</td><td>{{ p[4] }}</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
