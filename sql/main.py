@@ -2,18 +2,22 @@ from sql.database import Database
 from sql.repository.user_repository import UserRepository
 from sql.repository.product_repository import ProductRepository
 from sql.services.product_service import ProductService
-
+from sql.repository.inventory_repository import InventoryRepository
+from sql.services.inventory_service import InventoryService
+from decimal import Decimal
 
 def main():
     db = Database('test.db')
-    user_manager = UserRepository(db)
-    # product_repo = ProductRepository(db)
+    inventory_repo = InventoryRepository(db)
+    inventory_service = InventoryService(inventory_repo)
+    product_repo = ProductRepository(db)
+    product_service = ProductService(product_repo)
 
+    product = product_service.get_product_by_id(1001)
+    # inventory_repo.create_table()
+    # inventory_service.create_inventory(product,100)
+    inventory_service.update_inventory_quantity(product,50)
 
-    # user1 = User(1003,'wzw',1234,15072352627)
-    # user_manager.add_user(user1)
-    # user_manager.create_user(1004,'hmt',1234,15500000000)
-    # product_manager.create_product(1001,"苹果","水果",4,"营养价值高","kg",8,15)
 
 if __name__ == '__main__':
     main()
