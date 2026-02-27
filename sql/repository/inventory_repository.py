@@ -22,10 +22,7 @@ class InventoryRepository:
             VALUES (?,?)
         """
         params = (inventory.product_id,inventory.quantity)
-        if self.get_inventory_by_id(inventory.product_id):
-            raise ValueError(f"{inventory.product_id} 已存在")
-        else:
-            return self.db.execute(sql,params)
+        return self.db.execute(sql,params)
 
     def delete_inventory(self,product_id):
         sql = 'DELETE FROM inventory WHERE product_id = ?'

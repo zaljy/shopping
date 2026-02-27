@@ -11,10 +11,7 @@ class InventoryService:
         if quantity <= 0:
             raise ValueError('数量应为正数')
         inventory = Inventory(product_id,quantity)
-        try:
-            self.repo.save_inventory(inventory)
-        except ValueError as e:
-            print(e)
+        self.repo.save_inventory(inventory)
 
     def update_inventory_quantity(self,product_id,new_quantity:Decimal):
         if not self.repo.get_inventory_by_id(product_id):
