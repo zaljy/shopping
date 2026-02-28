@@ -1,5 +1,6 @@
+from decimal import Decimal
 class Product:
-    def __init__(self,product_id,name,category_id,price,description,unit,sale_price,shelf_life):
+    def __init__(self,product_id,name,category_id,price:Decimal,description,unit,sale_price:Decimal,shelf_life):
         self.product_id = product_id
         self.name = name
         self.category_id = category_id

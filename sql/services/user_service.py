@@ -1,5 +1,6 @@
 from models.user import User
 from sql.repository.user_repository import UserRepository
+import hash_password
 
 class UserService:
     def __init__(self,repo:UserRepository):
@@ -8,12 +9,13 @@ class UserService:
     def create_user(self,user_id,name,password,phone_number):
         if not name or not password:
             raise ValueError('姓名和密码不能为空')
-        if self.repo.get_user_by_id(user_id):
-            raise ValueError(f'用户ID{user_id}已存在')
+        #在创建数据库表的时候就把user_id设置成唯一
+        # if self.repo.get_user_by_id(user_id):
+        #     raise ValueError(f'用户ID{user_id}已存在')
         user = User(
             user_id=user_id,
             username=name,
-            password=password,
+            password=hash_password.hash_password(password),
             phone_number=phone_number
         )
         self.repo.save_user(user)
