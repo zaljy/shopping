@@ -1,5 +1,5 @@
 from models.user import User
-from sql.repository.user_repository import UserRepository
+from shop.repository.user_repository import UserRepository
 import hash_password
 
 class UserService:

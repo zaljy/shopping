@@ -1,5 +1,5 @@
-from sql.database import Database
-from sql.models.user import User
+from shop.database import Database
+from shop.models.user import User
 
 class UserRepository:
     def __init__(self,db:Database):
@@ -36,7 +36,7 @@ class UserRepository:
         return [self._row_to_user(row) for row in rows]
 
     def update_user(self, user_id, **kwargs):
-        if kwargs:
+        if not kwargs:
             return None
         else:
             set_clause = ','.join(f'{k} = ?' for k in kwargs)

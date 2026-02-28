@@ -1,9 +1,9 @@
-from sql.models.product import Product
-from sql.repository.product_repository import
+from shop.models.spu import Spu
+from shop.repository.spu_repository import
 from decimal import Decimal
 
 class CartItem:
-    def __init__(self, product:Product, quantity:Decimal):
+    def __init__(self, product:Spu, quantity:Decimal):
         self.product = product
         self.quantity = quantity
     @property

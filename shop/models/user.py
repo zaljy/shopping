@@ -6,4 +6,7 @@ class User:
         self.phone_number = phone_number
 
     def __repr__(self):
-        return f'User(user_id: {self.user_id}, username: {self.username}, password: {self.password}, phone_number: {self.phone_number})'
+        return f'<User {self.user_id} {self.username}>'
+
+    def __str__(self):
+        return {self.username}
