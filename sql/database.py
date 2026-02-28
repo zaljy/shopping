@@ -9,12 +9,14 @@ class Database:
     def get_db(self):
         conn = sqlite3.connect(self.db_file)
         conn.row_factory = sqlite3.Row
+        conn.execute("PRAGMA foreign_keys = ON")
         try:
             yield conn
             conn.commit()
         except sqlite3.Error as e:
-            print(f"数据库错误：{e}")
+            #print(f"数据库错误：{e}")
             conn.rollback()
+            raise e
         finally:
             conn.close()
 
