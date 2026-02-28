@@ -11,6 +11,7 @@ class InventoryRepository:
         CREATE TABLE inventory (
             product_id INT PRIMARY KEY NOT NULL,
             quantity DECIMAL(10, 3) NOT NULL
+            FOREIGN KEY (product_id) REFERENCES products(product_id) ON DELETE CASCADE
         )
         """
         return self.db.execute(sql)
@@ -27,6 +28,10 @@ class InventoryRepository:
     def delete_inventory(self,product_id):
         sql = 'DELETE FROM inventory WHERE product_id = ?'
         return self.db.execute(sql,(product_id,))
+
+    def update_quantity(self, product_id, new_quantity):
+        sql = 'UPDATE inventory SET quantity = quantity +? WHERE product_id = ?'
+        return self.db.execute(sql, (new_quantity, product_id))
 
     def update_inventory(self, product_id, **kwargs):
         if not kwargs:
@@ -52,5 +57,8 @@ class InventoryRepository:
 
     @staticmethod
     def _row_to_inventory(row):
-        inventory = Inventory(row['product_id'],row['quantity'])
-        return inventory
+        if not row:
+            return None
+        else:
+            inventory = Inventory(row['product_id'],row['quantity'])
+            return inventory

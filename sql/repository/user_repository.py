@@ -8,9 +8,9 @@ class UserRepository:
     def create_table(self):
         sql = """
         CREATE TABLE IF NOT EXISTS users (
-            user_id INTEGER PRIMARY KEY  NOT NULL,
+            user_id INTEGER PRIMARY KEY UNIQUE NOT NULL,
             username TEXT NOT NULL,
-            password TEXT NOT NULL,
+            password VARCHAR NOT NULL,
             phone_number TEXT UNIQUE
         )
         """
@@ -46,10 +46,13 @@ class UserRepository:
 
     @staticmethod
     def _row_to_user(row):
-        # 把数据库返回行转成Product对象
-        return User(
-            user_id = row["user_id"],
-            username = row["username"],
-            password = row["password"],
-            phone_number = row["phone_number"]
-        )
+        if not row:
+            return None
+        else:
+            # 把数据库返回行转成Product对象
+            return User(
+                user_id = row["user_id"],
+                username = row["username"],
+                password= row["password"],
+                phone_number = row["phone_number"]
+            )

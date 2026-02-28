@@ -59,13 +59,16 @@ class ProductRepository:
     @staticmethod
     def _row_to_product(row):
         #把数据库返回行转成Product对象
-        return Product(
-            product_id = row['product_id'],
-            name = row['name'],
-            category_id = row['category_id'],
-            price = row['price'],
-            description = row['description'],
-            unit = row['unit'],
-            sale_price = row['sale_price'],
-            shelf_life = row['shelf_life']
-        )
+        if not row:
+            return None
+        else:
+            return Product(
+                product_id = row['product_id'],
+                name = row['name'],
+                category_id = row['category_id'],
+                price = row['price'],
+                description = row['description'],
+                unit = row['unit'],
+                sale_price = row['sale_price'],
+                shelf_life = row['shelf_life']
+            )
